@@ -1,5 +1,5 @@
 [package]
-name = "shy_local"
+name = "shy_client"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,3 +7,8 @@ edition = "2021"
 
 [dependencies]
 lucian = "0.2"
+native-windows-gui = "1.0"
+native-windows-derive = "1.0"
+
+[build-dependencies]
+embed-resource = "1.7"
