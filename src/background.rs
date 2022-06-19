@@ -2,10 +2,10 @@ use lucian::gate::hub::line_header::LineType;
 use lucian::log::Log;
 use lucian::server::Server;
 
-const CALLER_NUM: u8 = 30;
+const CALLER_NUM: u8 = 16;
 const APP_PORT:usize = 1080;
 const LOG_PORT:usize = 1081;
-const PROXY_SERVER:&str = "127.0.0.1:3389";
+const PROXY_SERVER:&str = "8.218.15.102:3389";
 
 pub fn start() {
     Log::init();
