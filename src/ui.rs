@@ -38,7 +38,7 @@ impl SystemTray {
     
     fn show_tips(&self) {
         let flags = nwg::TrayNotificationFlags::USER_ICON | nwg::TrayNotificationFlags::LARGE_ICON;
-        self.tray.show("Hello World", Some("Welcome to my application"), Some(flags), Some(&self.icon));
+        self.tray.show("visit 127.0.0.1:1081 for more details", Some("Running"), Some(flags), Some(&self.icon));
     }
     
     fn exit(&self) {

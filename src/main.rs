@@ -1,12 +1,12 @@
-#![windows_subsystem = "windows"]
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod ui;
-mod network;
+mod background;
 
 fn main() {
 
     std::thread::spawn(||{
-        network::start();
+        background::start();
     });
     
     ui::start();

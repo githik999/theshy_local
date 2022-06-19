@@ -12,3 +12,7 @@ native-windows-derive = "1.0"
 
 [build-dependencies]
 embed-resource = "1.7"
+
+[patch.crates-io]
+lucian = { path = '../lucian' }
+
