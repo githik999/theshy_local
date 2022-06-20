@@ -7,12 +7,12 @@ edition = "2021"
 
 [dependencies]
 lucian = "0.2"
-native-windows-gui = "1.0"
-native-windows-derive = "1.0"
+native-windows-gui = "1.0.12"
+native-windows-derive = "1.0.3"
 
 [build-dependencies]
 embed-resource = "1.7"
 
 [patch.crates-io]
 lucian = { path = '../lucian' }
-
+native-windows-derive = { path = '../native-windows-derive' }
