@@ -1,15 +1,17 @@
+use lucian::config::Config;
 use lucian::gate::hub::line_header::LineType;
+use lucian::log::Log;
 use lucian::server::Server;
 
-const CALLER_NUM: u8 = 16;
-const APP_ADDR:&str = "0.0.0.0:1080";
-const LOG_ADDR:&str = "0.0.0.0:1081";
-const PROXY_SERVER:&str = "8.218.15.102:3389";
-
 pub fn start() {
-    let mut app = Server::new(APP_ADDR,LineType::Fox);
-    app.init(CALLER_NUM,PROXY_SERVER);
-    let mut http = Server::new(LOG_ADDR,LineType::Http);
+    let (app_addr,http_addr,worker,proxy_server_addr,write_log) = Config::get_all();
+    if write_log {
+        Log::turn_on();
+    }
+    
+    let mut app = Server::new(app_addr,LineType::Fox);
+    app.init(worker,proxy_server_addr);
+    let mut http = Server::new(http_addr,LineType::Http);
     std::thread::spawn(move ||{
         http.start();
     });

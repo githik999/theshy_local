@@ -1,7 +1,7 @@
 extern crate native_windows_gui as nwg;
 extern crate native_windows_derive as nwd;
 
-use lucian::server::Server;
+use lucian::{server::Server, config::Config};
 use nwd::NwgUi;
 use nwg::NativeUi;
 
@@ -40,8 +40,12 @@ impl SystemTray {
     fn check_status(&self) {
         let status = Server::status();
         let title = format!("{:?}",status);
+        self.notification(title.as_str(),"open 127.0.0.1:1081 for more details");
+    }
+
+    fn notification(&self,title:&str,message:&str) {
         let flags = nwg::TrayNotificationFlags::USER_ICON | nwg::TrayNotificationFlags::LARGE_ICON;
-        self.tray.show("visit 127.0.0.1:1081 for more details", Some(title.as_str()), Some(flags), Some(&self.icon));
+        self.tray.show(message, Some(title), Some(flags), Some(&self.icon));
     }
     
     fn exit(&self) {
@@ -51,8 +55,9 @@ impl SystemTray {
 }
 
 pub fn start() {
+    let addr = Config::get_proxy_server_addr();
     nwg::init().expect("Failed to init Native Windows GUI");
     let icon = SystemTray::build_ui(Default::default()).expect("Failed to build UI");
-    icon.check_status();
+    icon.notification("Hold On",format!("calling {}.....",addr).as_str());
     nwg::dispatch_thread_events();
 }
