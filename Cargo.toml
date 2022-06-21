@@ -8,7 +8,7 @@ edition = "2021"
 [dependencies]
 lucian = "0.2"
 native-windows-gui = "1.0.12"
-native-windows-derive = "1.0.3"
+native-windows-derive = "1.0.4"
 
 [build-dependencies]
 embed-resource = "1.7"

@@ -1,6 +1,7 @@
 extern crate native_windows_gui as nwg;
 extern crate native_windows_derive as nwd;
 
+use lucian::server::Server;
 use nwd::NwgUi;
 use nwg::NativeUi;
 
@@ -21,7 +22,7 @@ pub struct SystemTray {
     tray_menu: nwg::Menu,
 
     #[nwg_control(parent: tray_menu, text: "status")]
-    #[nwg_events(OnMenuItemSelected: [SystemTray::show_tips])]
+    #[nwg_events(OnMenuItemSelected: [SystemTray::check_status])]
     tray_item2: nwg::MenuItem,
 
     #[nwg_control(parent: tray_menu, text: "exit")]
@@ -36,9 +37,11 @@ impl SystemTray {
         self.tray_menu.popup(x, y);
     }
     
-    fn show_tips(&self) {
+    fn check_status(&self) {
+        let status = Server::status();
+        let title = format!("{:?}",status);
         let flags = nwg::TrayNotificationFlags::USER_ICON | nwg::TrayNotificationFlags::LARGE_ICON;
-        self.tray.show("visit 127.0.0.1:1081 for more details", Some("Running"), Some(flags), Some(&self.icon));
+        self.tray.show("visit 127.0.0.1:1081 for more details", Some(title.as_str()), Some(flags), Some(&self.icon));
     }
     
     fn exit(&self) {
@@ -49,7 +52,7 @@ impl SystemTray {
 
 pub fn start() {
     nwg::init().expect("Failed to init Native Windows GUI");
-    let obj = SystemTray::build_ui(Default::default()).expect("Failed to build UI");
-    obj.show_tips();
+    let icon = SystemTray::build_ui(Default::default()).expect("Failed to build UI");
+    icon.check_status();
     nwg::dispatch_thread_events();
 }
