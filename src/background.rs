@@ -1,12 +1,10 @@
-use lucian::config::Config;
-use lucian::gate::hub::line_header::LineType;
-use lucian::log::Log;
 use lucian::server::Server;
+use omg_cool::{header::LineType, config::Config};
 
 pub fn start() {
     let (app_addr,http_addr,worker,proxy_server_addr,write_log) = Config::get_all();
     if write_log {
-        Log::turn_on();
+        Config::turn_on();
     }
     
     let mut app = Server::new(app_addr,LineType::Fox);

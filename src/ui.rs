@@ -1,9 +1,12 @@
 extern crate native_windows_gui as nwg;
 extern crate native_windows_derive as nwd;
 
-use lucian::{server::Server, config::Config};
+use core::time;
+use std::process::Command;
+use lucian::server::Server;
 use nwd::NwgUi;
 use nwg::NativeUi;
+use omg_cool::config::Config;
 
 
 #[derive(Default, NwgUi)]
@@ -59,5 +62,7 @@ pub fn start() {
     nwg::init().expect("Failed to init Native Windows GUI");
     let icon = SystemTray::build_ui(Default::default()).expect("Failed to build UI");
     icon.notification("Hold On",format!("calling {}.....",addr).as_str());
+    std::thread::sleep(time::Duration::from_millis(200));
+    Command::new("cmd.exe").arg("/C").arg("start").arg("https://google.com").spawn().unwrap();
     nwg::dispatch_thread_events();
 }

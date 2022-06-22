@@ -1,18 +1,21 @@
 [package]
-name = "shy_client"
-version = "0.1.0"
+name = "theshy_local"
+version = "0.1.1"
 edition = "2021"
-
+description = "a socks5 proxy written in Rust (this is the local client side)"
+license = "GPL-3.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-lucian = "0.2"
+omg-cool = "0.1.1"
+lucian = "0.2.1"
 native-windows-gui = "1.0.12"
-native-windows-derive = "1.0.4"
+native-windows-derive = "1.0.5"
+
+[patch.crates-io]
+omg-cool = { path = '../omg-cool' }
+lucian = { path = '../lucian' }
 
 [build-dependencies]
 embed-resource = "1.7"
 
-[patch.crates-io]
-lucian = { path = '../lucian' }
-native-windows-derive = { path = '../native-windows-derive' }
